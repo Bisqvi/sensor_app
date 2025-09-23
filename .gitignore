@@ -1,0 +1,24 @@
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.sqlite3
+.env
+
+# Django
+*.log
+*.pot
+*.py[cod]
+*.swp
+media/
+
+# Node / React
+node_modules/
+build/
+
+# Docker
+*.env
+*.dockerignore
+**/Dockerfile
+**/docker-compose.override.yml
