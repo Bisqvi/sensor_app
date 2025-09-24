@@ -2,30 +2,23 @@
 
 This is a monorepo with a **Django backend (with Django Ninja)**, a **React frontend**, and a **Postgres database**, fully containerized with Docker.
 
-## Folder Structure
-
-sensor_app/
-├── backend/ # Django backend
-│ ├── Dockerfile
-│ ├── requirements.txt
-│ └── manage.py
-├── frontend/ # React frontend
-│ ├── Dockerfile
-│ ├── package.json
-│ └── src/
-└── docker-compose.yml
-
 ## Build and start all containers
 
 docker-compose up --build
+OR
+make up
 
 ## Run migrations
 
-docker-compose run backend python manage.py migrate
+docker-compose run web python manage.py migrate
+OR
+make migrate
 
 ## Run tests
 
-...
+docker-compose run --rm web pytest tests/
+OR
+make test
 
 ## API overview
 

@@ -1,3 +1,8 @@
 Django>=4.2,<5.0
 psycopg2-binary
-django-ninja
+django-ninja==1.4.3
+
+# Dev / testing
+pytest
+pytest-django
+httpx
