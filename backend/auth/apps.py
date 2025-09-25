@@ -1,5 +1,6 @@
 from django.apps import AppConfig
 
-class SensorsConfig(AppConfig):
+class AuthConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'sensors'
+    name = 'auth'
+    label = 'authorization'

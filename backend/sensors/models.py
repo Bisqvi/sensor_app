@@ -35,4 +35,3 @@ class Reading(models.Model):
         indexes = [
             models.Index(fields=['sensor', 'timestamp']),
         ]
-
