@@ -10,5 +10,10 @@ migrate:
 test:
 	docker-compose run --rm web pytest tests/
 
-# create seed data (make seed)
-# TODO
+# clear the database
+flush:
+	docker-compose run --rm web python manage.py flush --no-input
+
+# create seed data
+seed:
+	docker-compose run --rm web python manage.py seed
