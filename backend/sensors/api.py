@@ -7,6 +7,7 @@ from django.db.models import Q
 from typing import List, Optional
 from datetime import datetime
 from django.utils import timezone
+from pydantic import ConfigDict
 from .models import Sensor, Reading
 
 api = NinjaAPI(urls_namespace="api")
@@ -21,14 +22,15 @@ class SensorCreateSchema(Schema):
     model: str
     description: Optional[str] = None
 
-    class Config:
-        schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "name": "device_001",
                 "model": "EnviroSense",
                 "description": "This is a description"
             }
         }
+    )
 
 @api.get("/sensors", response=list[SensorSchema])
 @paginate(PageNumberPagination, page_size = 10)
@@ -101,14 +103,15 @@ class ReadingCreateSchema(Schema):
     humidity: float
     timestamp: datetime
 
-    class Config:
-        schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "temperature": 21.5,
                 "humidity": 55.2,
                 "timestamp": "2025-09-23T14:00:00"
             }
         }
+    )
 
 @api.get("/sensors/{sensor_id}/readings", response=List[ReadingSchema])
 def list_readings(request, sensor_id: int, filters: ReadingFilterSchema = Query(...)):
