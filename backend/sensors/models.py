@@ -35,3 +35,6 @@ class Reading(models.Model):
         indexes = [
             models.Index(fields=['sensor', 'timestamp']),
         ]
+        constraints = [
+            models.UniqueConstraint(fields=['sensor', 'timestamp'], name='unique_sensor_timestamp')
+        ]
