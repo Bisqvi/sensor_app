@@ -65,7 +65,7 @@ class SensorUpdateSchema(Schema):
         }
     )
 
-@api.get("/sensors", response=list[SensorSchema])
+@api.get("/sensors", tags=["Sensors"], response=list[SensorSchema])
 @paginate(PageNumberPagination, page_size = 10)
 def list_sensors(request, q: str = None):
     """
@@ -77,14 +77,14 @@ def list_sensors(request, q: str = None):
 
     return qs
 
-@api.post("/sensors", response=SensorSchema)
+@api.post("/sensors", tags=["Sensors"], response=SensorSchema)
 def create_sensor(request, payload: SensorCreateSchema):
     """
     Create a new sensor.
     """
     return Sensor.objects.create(owner=request.user, **payload.dict())
 
-@api.get("/sensors/{sensor_id}", response=SensorSchema)
+@api.get("/sensors/{sensor_id}", tags=["Sensors"], response=SensorSchema)
 def get_sensor(request, sensor_id: int):
     """
     Get details for a specific sensor by ID. Only the owner can access it.
@@ -94,7 +94,7 @@ def get_sensor(request, sensor_id: int):
         raise HttpError(403, "Forbidden")
     return sensor
 
-@api.put("/sensors/{sensor_id}")
+@api.put("/sensors/{sensor_id}", tags=["Sensors"])
 def update_sensor(request, sensor_id: int, payload: SensorUpdateSchema):
     """
     Update a sensor by ID.
@@ -107,7 +107,7 @@ def update_sensor(request, sensor_id: int, payload: SensorUpdateSchema):
     sensor.save()
     return {"success": True}
 
-@api.delete("/sensors/{sensor_id}")
+@api.delete("/sensors/{sensor_id}", tags=["Sensors"])
 def delete_sensor(request, sensor_id: int):
     """
     Delete a sensor by ID.
@@ -152,7 +152,7 @@ class ReadingCreateSchema(Schema):
         }
     )
 
-@api.get("/sensors/{sensor_id}/readings", response=List[ReadingSchema])
+@api.get("/sensors/{sensor_id}/readings", tags=["Readings"], response=List[ReadingSchema])
 def list_readings(request, sensor_id: int, filters: ReadingFilterSchema = Query(...)):
     """
     List readings for a specific sensor by ID with optional timestamp filtering.
@@ -163,7 +163,7 @@ def list_readings(request, sensor_id: int, filters: ReadingFilterSchema = Query(
     qs = Reading.objects.filter(Q(sensor=sensor) & filters.get_filter_expression())
     return list(qs)
 
-@api.post("/sensors/{sensor_id}/readings", response=ReadingSchema)
+@api.post("/sensors/{sensor_id}/readings", tags=["Readings"], response=ReadingSchema)
 def create_reading(request, sensor_id: int, payload: ReadingCreateSchema):
     """
     Create a reading for a specific sensor by ID.
