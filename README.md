@@ -22,4 +22,5 @@ make test
 
 ## API overview
 
+see Swagger docs at /api/docs
 ...
