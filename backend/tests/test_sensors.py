@@ -1,6 +1,5 @@
 import pytest
 from sensors.models import Sensor, Reading
-from django.contrib.auth import get_user_model
 from django.utils import timezone
 
 def test_create_sensor(auth_client, user):
@@ -99,3 +98,10 @@ def test_user_cannot_delete_others_sensors(auth_client, other_user):
     other_sensor.refresh_from_db()
     assert other_sensor.name == "Other_003"
 
+def test_unauthorized_response(client):
+    response = client.post("/api/sensors", json={
+        "name": "Test_005",
+        "model": "Test Sensor",
+        "description": "Test sensor"
+    })
+    assert response.status_code == 401
