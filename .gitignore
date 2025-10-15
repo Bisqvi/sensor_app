@@ -21,8 +21,3 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
-
-# Docker
-*.dockerignore
-**/Dockerfile
-docker-compose.override.yml
